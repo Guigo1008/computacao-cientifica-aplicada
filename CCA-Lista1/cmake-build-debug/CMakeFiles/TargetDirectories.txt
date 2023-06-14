@@ -1,0 +1,3 @@
+/home/guigo/CLionProjects/CCA-Lista1/cmake-build-debug/CMakeFiles/CCA_Lista1.dir
+/home/guigo/CLionProjects/CCA-Lista1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/guigo/CLionProjects/CCA-Lista1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

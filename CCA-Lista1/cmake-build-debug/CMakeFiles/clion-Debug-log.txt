@@ -1,0 +1,4 @@
+"/home/guigo/Área de Trabalho/clion-2023.1.1/bin/cmake/linux/x64/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/home/guigo/Área de Trabalho/clion-2023.1.1/bin/ninja/linux/x64/ninja" -G Ninja -S /home/guigo/CLionProjects/CCA-Lista1 -B /home/guigo/CLionProjects/CCA-Lista1/cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/guigo/CLionProjects/CCA-Lista1/cmake-build-debug
