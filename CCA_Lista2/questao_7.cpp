@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <matplot/matplot.h>
 
 using namespace std;
 

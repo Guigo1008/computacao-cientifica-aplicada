@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2023.1.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.1.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\USER\CLionProjects\CCA_Lista2 -B C:\Users\USER\CLionProjects\CCA_Lista2\cmake-build-debug
+"/home/guigo/Área de Trabalho/clion-2023.1.3/bin/cmake/linux/x64/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/home/guigo/Área de Trabalho/clion-2023.1.3/bin/ninja/linux/x64/ninja" -DCMAKE_TOOLCHAIN_FILE=/home/guigo/clion-vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja -S /home/guigo/CLionProjects/CCA-Lista2 -B /home/guigo/CLionProjects/CCA-Lista2/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/USER/CLionProjects/CCA_Lista2/cmake-build-debug
+-- Build files have been written to: /home/guigo/CLionProjects/CCA-Lista2/cmake-build-debug

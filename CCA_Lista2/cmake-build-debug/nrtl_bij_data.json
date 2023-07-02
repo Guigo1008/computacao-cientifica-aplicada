@@ -1,0 +1,39 @@
+{
+    "Author":"LF",
+    "Date":"06/06/2023",
+    "Methanol": {
+        "Methanol": 0.0,
+        "Ethanol": -1162.3,
+        "Benzene": 892.2,
+        "Water": 173.0,
+        "Acetone": 114.1
+    },
+    "Ethanol": {
+        "Methanol": 483.8,
+        "Ethanol": 0.0,
+        "Benzene": -54.8,
+        "Water": 246.2,
+        "Acetone": 479.1
+    },
+    "Benzene": {
+        "Methanol": -3282.6,
+        "Ethanol": 882.0,
+        "Benzene": 0.0,
+        "Water": 591.4,
+        "Acetone": -239.9
+    },
+    "Water": {
+        "Methanol": -617.3,
+        "Ethanol": -586.1,
+        "Benzene": -5954.3,
+        "Water": 0.0,
+        "Acetone": 420.0
+    },
+    "Acetone": {
+        "Methanol": 101.9,
+        "Ethanol": 206.6,
+        "Benzene": 306.1,
+        "Water": -1809.0,
+        "Acetone": 0.0
+    }
+}

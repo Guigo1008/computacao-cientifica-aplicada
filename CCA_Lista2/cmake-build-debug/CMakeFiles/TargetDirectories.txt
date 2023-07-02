@@ -1,3 +1,3 @@
-C:/Users/USER/CLionProjects/CCA_Lista2/cmake-build-debug/CMakeFiles/CCA_Lista2.dir
-C:/Users/USER/CLionProjects/CCA_Lista2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/USER/CLionProjects/CCA_Lista2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/guigo/CLionProjects/CCA-Lista2/cmake-build-debug/CMakeFiles/CCA_Lista2.dir
+/home/guigo/CLionProjects/CCA-Lista2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/guigo/CLionProjects/CCA-Lista2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
