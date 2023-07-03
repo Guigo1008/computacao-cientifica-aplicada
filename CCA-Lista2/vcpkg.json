@@ -1,0 +1,9 @@
+{
+  "name" : "cca-lista2",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "80ecf32496c3806c5bb79bb80f029f83d058930e",
+  "dependencies" : [ {
+    "name" : "matplotplusplus",
+    "version>=" : "1.2.0"
+  } ]
+}
