@@ -6,7 +6,7 @@ double* cria_matriz_temperaturas();
 int* cria_array_mudar();
 
 int main(){
-  double soma_array_mudar;
+  int soma_array_mudar;
   auto* aux = new double[100];
   int* array_mudar = cria_array_mudar();
   double* matriz_temp = cria_matriz_temperaturas();
@@ -16,7 +16,7 @@ int main(){
       for(int j=1; j<9; j++){
         aux[i*10+j] = (matriz_temp[(i+1)*10 + j] + matriz_temp[(i-1)*10 + j]
         + matriz_temp[i*10 + (j+1)] + matriz_temp[i*10 + (j-1)])/4.;
-        if(abs(matriz_temp[i*10+j]-aux[i*10+j]) > 0.001 && abs(matriz_temp[i*10+j]-100.) > 0.001){
+        if((abs(matriz_temp[i*10+j]-aux[i*10+j]) > 0.001) && (abs(matriz_temp[i*10+j]-100.) > 0.001)){
           array_mudar[i*10+j] = 1;
         } 
         else {
@@ -38,10 +38,11 @@ int main(){
     if (soma_array_mudar==0){
       break;
     }
+    soma_array_mudar = 0;
   }
 
   for(int i=0; i<100; i++){
-    cout << matriz_temp[i] << "\n";
+      cout << matriz_temp[i] << "\n";
   }
 
   delete[] aux;
@@ -67,7 +68,7 @@ int* cria_array_mudar() {
   auto* array = new int[100];
 
   for(int i=0; i<100; i++){
-    array[i] = 0.;
+    array[i] = 0;
   }
   return array;
 }
