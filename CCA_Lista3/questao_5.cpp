@@ -7,6 +7,7 @@ int* cria_array_mudar();
 
 int main(){
   cout.setf(ios_base::scientific);
+  cout.precision(2);
   int soma_array_mudar;
   auto* aux = new double[100];
   int* array_mudar = cria_array_mudar();
