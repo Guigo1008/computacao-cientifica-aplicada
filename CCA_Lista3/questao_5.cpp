@@ -6,6 +6,7 @@ double* cria_matriz_temperaturas();
 int* cria_array_mudar();
 
 int main(){
+  cout.setf(ios_base::scientific);
   int soma_array_mudar;
   auto* aux = new double[100];
   int* array_mudar = cria_array_mudar();
@@ -41,8 +42,18 @@ int main(){
     soma_array_mudar = 0;
   }
 
-  for(int i=0; i<100; i++){
-      cout << matriz_temp[i] << "\n";
+  for(int i=0; i<10; i++){
+    cout << "|" << " ";
+    cout << matriz_temp[i*10+0] << " ";
+    cout << matriz_temp[i*10+1] << " ";
+    cout << matriz_temp[i*10+2] << " ";
+    cout << matriz_temp[i*10+3] << " ";
+    cout << matriz_temp[i*10+4] << " ";
+    cout << matriz_temp[i*10+5] << " ";
+    cout << matriz_temp[i*10+6] << " ";
+    cout << matriz_temp[i*10+7] << " ";
+    cout << matriz_temp[i*10+8] << " ";
+    cout << matriz_temp[i*10+9] << "|"<< "\n";
   }
 
   delete[] aux;
