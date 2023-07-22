@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 #include <utility>
 
 using namespace std;
@@ -80,17 +81,77 @@ public:
     }
 };
 
-class calculadora_de_constantes{
-    
+class coeficientes_vazao_massica {
+    private:
+    double D;
+    double L;
+    double DAB;
+    double taxa_massica;
+    double visc;
+    double visc_cin;
+    double ro_b;
+    double ro_as;
+    double As = M_PI*D*L;
+
+    public:
+    coeficientes_vazao_massica(double D, double L, double Dab, double taxa_massica, double visc, double visc_cin, double ro_b, double ro_as){
+        this->D = D;
+        this->L = L;
+        this->DAB = Dab;
+        this->taxa_massica = taxa_massica;
+        this->visc = visc;
+        this->visc_cin = visc_cin;
+        this->ro_b = ro_b;
+        this->ro_as = ro_as;
+    }
+
+    double calcula_reynolds() {
+        double reynolds = 4.*taxa_massica/(M_PI*D*visc);
+        return reynolds;
+    }
+
+    double calcula_schmidt(){
+        double schmidt = visc_cin / DAB;
+        return schmidt;
+    }
+
+    double calcula_hm(double red, double sch) {
+        double hm;
+        if (10. < red && red < 2000.) { // regime laminar
+            hm = 1.86*pow(D/L*red*sch, 1./3.)*DAB/D;
+        } else if (2000. < red && red < 35000. && 0.6 < sch && sch < 2.5) { // regime turbulento
+            hm = 0.023*pow(red, 0.83)*pow(sch, 0.44)*DAB/D;
+        } else {
+            cout << "Erro ao calcular o coeficiente de transferência de calor. Regime invalido." << endl;
+            abort();
+        }
+        return hm;
+    }
+
+    double calcula_pout(double hm) {
+        double pout = ro_as - ro_as*exp(-As*hm*ro_b/taxa_massica);
+        return pout;
+    }
 };
 
 int main(){
-    prop_fisicas ar = prop_fisicas("Ar", 298.);
+    double D = 10e-3, L = 1.3, DAB = 26e-6;
+    double taxa_massica1 = 2e-3, taxa_massica2 = 4e-5, taxa_massica3 = 1e-5, taxa_massica4 =;
+    double temp = 305.;
+
+    prop_fisicas ar = prop_fisicas("Ar", temp);
+    prop_fisicas agua = prop_fisicas("agua", temp);
 
     double viscosidade_ar = ar.propriedade(3);
-    cout << viscosidade_ar << endl;
+    double viscosidade_cin_ar = ar.propriedade(4);
+    double ro_b = ar.propriedade(2);
+    double ro_as = 1./agua.propriedade(3);
 
-
+    coeficientes_vazao_massica teste = coeficientes_vazao_massica(D, L, DAB, taxa_massica1, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+    double reynolds = teste.calcula_reynolds();
+    double schmidt = teste.calcula_schmidt();
+    double hm = teste.calcula_hm(reynolds, schmidt);
+    double pout = teste.calcula_pout(hm);
 
     return 0;
 }
