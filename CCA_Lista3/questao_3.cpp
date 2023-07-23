@@ -37,7 +37,7 @@ private:
         int i = 0;
         coluna_propriedade--;
         while(true) {
-            if(temperatura >= tabela[i*num_de_colunas] && temperatura <= tabela[(i+1)*num_de_colunas]) {
+            if(temperatura >= tabela[i*num_de_colunas] && temperatura < tabela[(i+1)*num_de_colunas]) {
                 break;
             } else {
                 i++;
@@ -82,7 +82,7 @@ public:
 };
 
 class coeficientes_vazao_massica {
-    private:
+private:
     double D;
     double L;
     double DAB;
@@ -91,10 +91,10 @@ class coeficientes_vazao_massica {
     double visc_cin;
     double ro_b;
     double ro_as;
-    double As = M_PI*D*L;
+    double As;
 
-    public:
-    coeficientes_vazao_massica(double D, double L, double Dab, double taxa_massica, double visc, double visc_cin, double ro_b, double ro_as){
+public:
+    coeficientes_vazao_massica(double D, double L, double Dab, double taxa_massica, double visc, double visc_cin, double ro_b, double ro_as) {
         this->D = D;
         this->L = L;
         this->DAB = Dab;
@@ -103,6 +103,7 @@ class coeficientes_vazao_massica {
         this->visc_cin = visc_cin;
         this->ro_b = ro_b;
         this->ro_as = ro_as;
+        this->As = M_PI*D*L;
     }
 
     double calcula_reynolds() {
@@ -122,36 +123,58 @@ class coeficientes_vazao_massica {
         } else if (2000. < red && red < 35000. && 0.6 < sch && sch < 2.5) { // regime turbulento
             hm = 0.023*pow(red, 0.83)*pow(sch, 0.44)*DAB/D;
         } else {
-            cout << "Erro ao calcular o coeficiente de transferência de calor. Regime invalido." << endl;
+            cout << "Erro ao calcular o coeficiente de transferencia de calor. Regime invalido." << endl;
             abort();
         }
         return hm;
     }
 
     double calcula_pout(double hm) {
-        double pout = ro_as - ro_as*exp(-As*hm*ro_b/taxa_massica);
+        double pout = this->ro_as - this->ro_as*exp(-this->As*hm*this->ro_b/this->taxa_massica);
         return pout;
     }
 };
 
 int main(){
     double D = 10e-3, L = 1.3, DAB = 26e-6;
-    double taxa_massica1 = 2e-3, taxa_massica2 = 4e-5, taxa_massica3 = 1e-5, taxa_massica4 =;
-    double temp = 305.;
+    double taxa_massica1 = 2.2e-4, taxa_massica2 = 4e-5, taxa_massica3 = 1e-5, taxa_massica4 = 2e-4;
+    double temp = 298.15;
 
     prop_fisicas ar = prop_fisicas("Ar", temp);
     prop_fisicas agua = prop_fisicas("agua", temp);
 
-    double viscosidade_ar = ar.propriedade(3);
-    double viscosidade_cin_ar = ar.propriedade(4);
+    double viscosidade_ar = ar.propriedade(4);
+    double viscosidade_cin_ar = ar.propriedade(5);
     double ro_b = ar.propriedade(2);
     double ro_as = 1./agua.propriedade(3);
 
-    coeficientes_vazao_massica teste = coeficientes_vazao_massica(D, L, DAB, taxa_massica1, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
-    double reynolds = teste.calcula_reynolds();
-    double schmidt = teste.calcula_schmidt();
-    double hm = teste.calcula_hm(reynolds, schmidt);
-    double pout = teste.calcula_pout(hm);
+    coeficientes_vazao_massica teste1 = coeficientes_vazao_massica(D, L, DAB, taxa_massica1, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+    double reynolds1 = teste1.calcula_reynolds();
+    double schmidt1 = teste1.calcula_schmidt();
+    double hm1 = teste1.calcula_hm(reynolds1, schmidt1);
+    double pout1 = teste1.calcula_pout(hm1);
+    cout << "A taxa massica de saida eh " << pout1 << "\n";
+
+    coeficientes_vazao_massica teste2 = coeficientes_vazao_massica(D, L, DAB, taxa_massica2, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+    double reynolds2 = teste2.calcula_reynolds();
+    double schmidt2 = teste2.calcula_schmidt();
+    double hm2 = teste2.calcula_hm(reynolds2, schmidt2);
+    double pout2 = teste2.calcula_pout(hm2);
+    cout << "A taxa massica de saida eh " << pout2 << "\n";
+
+    coeficientes_vazao_massica teste3 = coeficientes_vazao_massica(D, L, DAB, taxa_massica3, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+    double reynolds3 = teste3.calcula_reynolds();
+    double schmidt3 = teste3.calcula_schmidt();
+    double hm3 = teste3.calcula_hm(reynolds3, schmidt3);
+    double pout3 = teste3.calcula_pout(hm3);
+    cout << "A taxa massica de saida eh " << pout3 << "\n";
+
+    coeficientes_vazao_massica teste4 = coeficientes_vazao_massica(D, L, DAB, taxa_massica4, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+    double reynolds4 = teste4.calcula_reynolds();
+    double schmidt4 = teste4.calcula_schmidt();
+    double hm4 = teste4.calcula_hm(reynolds4, schmidt4);
+    double pout4 = teste4.calcula_pout(hm4);
+    cout << "A taxa massica de saida eh " << pout4 << "\n";
 
     return 0;
 }
