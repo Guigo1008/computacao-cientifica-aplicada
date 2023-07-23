@@ -206,7 +206,7 @@ int main(){
     calcula cal(p,temp);
     cal.calculinhos(MM1, MM2, eps1,eps2,sig1,sig2);
 
-    DAB = cal.get_D_total() * 1e-6;
+    DAB = cal.get_D_total() * 1e-6; // converte-se para m^2/s
     cout << DAB << endl;
 
     double viscosidade_ar = ar.propriedade(4);
