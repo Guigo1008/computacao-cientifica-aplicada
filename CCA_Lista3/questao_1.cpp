@@ -72,12 +72,12 @@ int main() {
     cout << "Insira a pressao >> ";
     cin >> p;
 
-    double epsilon_dado_composto1 = ler_json("leonard.json", comp1, "epsilon");
-    double sigma_dado_composto1 = ler_json("leonard.json", comp1, "sigma");
-    double  epsilon_dado_composto2 = ler_json("leonard.json", comp2, "epsilon");
-    double sigma_dado_composto2 = ler_json("leonard.json", comp2, "sigma");
-    double massa_molecular_composto1 = ler_json("leonard.json", comp1, "MM");
-    double massa_molecular_composto2 = ler_json("leonard.json", comp2, "sigma");
+    double epsilon_dado_composto1 = ler_json("lennard.json", comp1, "epsilon");
+    double sigma_dado_composto1 = ler_json("lennard.json", comp1, "sigma");
+    double  epsilon_dado_composto2 = ler_json("lennard.json", comp2, "epsilon");
+    double sigma_dado_composto2 = ler_json("lennard.json", comp2, "sigma");
+    double massa_molecular_composto1 = ler_json("lennard.json", comp1, "MM");
+    double massa_molecular_composto2 = ler_json("lennard.json", comp2, "sigma");
 
 
     double M_a = massa_molecular_composto1, M_b = massa_molecular_composto2; // g/mol
@@ -92,6 +92,6 @@ int main() {
 
     std::cout << "O valor de Dab, em centimetros quadrados por segundo eh: " << cal.get_D_total() << " cm**2/s \n";
     std::cout << "Comparando com o valor obtido pela correlacao com o experimental, \n"
-            "obtem-se uma discrepancia relativa de: " << cal.get_discrepancia() << " % \n";
+                 "obtem-se uma discrepancia relativa de: " << cal.get_discrepancia() << " % \n";
 
 }
