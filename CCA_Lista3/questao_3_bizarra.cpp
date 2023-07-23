@@ -191,23 +191,24 @@ double ler_json(const string& nome_json, const string& subst1, const string& pro
 
 int main(){
     double D = 10e-3, L = 1.3, DAB;
-    double taxa_massica1 = 2.2e-4, taxa_massica2 = 4e-5, taxa_massica3 = 1e-5, taxa_massica4 = 2e-4;
+    double taxa_massica1 = 2.2e-4, taxa_massica2 = 4e-6, taxa_massica3 = 1e-5, taxa_massica4 = 2e-4;
     double temp = 298.15, p = 1.;
 
     prop_fisicas ar = prop_fisicas("Ar", temp);
     prop_fisicas agua = prop_fisicas("agua", temp);
-    double eps1 = ler_json("leonard.json", "H2O", "epsilon");
-    double sig1 = ler_json("leonard.json", "H2O", "sigma");
-    double MM1 = ler_json("leonard.json", "H2O", "MM");
-    double eps2 = ler_json("leonard.json", "Air", "epsilon");
-    double sig2 = ler_json("leonard.json", "Air", "sigma");
-    double MM2 = ler_json("leonard.json", "Air", "sigma");
+    double eps1 = ler_json("lennard.json", "H2O", "epsilon");
+    double sig1 = ler_json("lennard.json", "H2O", "sigma");
+    double MM1 = ler_json("lennard.json", "H2O", "MM");
+    double eps2 = ler_json("lennard.json", "Air", "epsilon");
+    double sig2 = ler_json("lennard.json", "Air", "sigma");
+    double MM2 = ler_json("lennard.json", "Air", "sigma");
 
     calcula cal(p,temp);
     cal.calculinhos(MM1, MM2, eps1,eps2,sig1,sig2);
 
-    DAB = cal.get_D_total();
-    
+    DAB = cal.get_D_total() * 1e-6;
+    cout << DAB << endl;
+
     double viscosidade_ar = ar.propriedade(4);
     double viscosidade_cin_ar = ar.propriedade(5);
     double ro_b = ar.propriedade(2);
