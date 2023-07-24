@@ -51,7 +51,7 @@ int main() {
         soma_array_mudar = 0;
     }
 
-    ofstream tabela("resultados_questao5.txt", ios::out);
+    ofstream tabela("res_q5.txt", ios::out);
     if (tabela.is_open()) {
 
         // escrevendo os resultados no arquivo txt
