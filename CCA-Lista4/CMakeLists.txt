@@ -6,5 +6,5 @@ set(CMAKE_PREFIX_PATH "~/clion-vcpkg/installed/x64-linux/")
 
 add_executable(CCA_Lista4 questao_1.cpp)
 find_package(Eigen3 REQUIRED)
-
-target_link_libraries(CCA_Lista4 PRIVATE Eigen3::Eigen)
+find_package(Matplot++ CONFIG REQUIRED)
+target_link_libraries(CCA_Lista4 PRIVATE Eigen3::Eigen Matplot++::cimg Matplot++::matplot)
