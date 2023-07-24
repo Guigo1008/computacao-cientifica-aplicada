@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cmath>
+#include <vector>
 #include <utility>
 #include "nlohmann/json.hpp"
 
@@ -191,56 +192,39 @@ double ler_json(const string& nome_json, const string& subst1, const string& pro
 
 int main(){
     double D = 10e-3, L = 1.3, DAB;
-    double taxa_massica1 = 2.2e-4, taxa_massica2 = 4e-6, taxa_massica3 = 1e-5, taxa_massica4 = 2e-4;
-    double temp = 298.15, p = 1.;
+    double p = 1.;
+    double t_agua = 298.15;
+    vector<double> temp = {273.15, 298.15, 350.15, 373.15};
+    vector<double> taxa_massica = {2.2e-4, 1e-2, 1e-5, 2e-4};
 
-    prop_fisicas ar = prop_fisicas("Ar", temp);
-    prop_fisicas agua = prop_fisicas("agua", temp);
-    double eps1 = ler_json("lennard.json", "H2O", "epsilon");
-    double sig1 = ler_json("lennard.json", "H2O", "sigma");
-    double MM1 = ler_json("lennard.json", "H2O", "MM");
-    double eps2 = ler_json("lennard.json", "Air", "epsilon");
-    double sig2 = ler_json("lennard.json", "Air", "sigma");
-    double MM2 = ler_json("lennard.json", "Air", "sigma");
+    for (int i = 0; i < 4; i++) {
+        prop_fisicas ar = prop_fisicas("Ar", temp[i]);
+        prop_fisicas agua = prop_fisicas("agua", t_agua);
 
-    calcula cal(p,temp);
-    cal.calculinhos(MM1, MM2, eps1,eps2,sig1,sig2);
+        double eps1 = ler_json("lennard.json", "H2O", "epsilon");
+        double sig1 = ler_json("lennard.json", "H2O", "sigma");
+        double MM1 = ler_json("lennard.json", "H2O", "MM");
+        double eps2 = ler_json("lennard.json", "Air", "epsilon");
+        double sig2 = ler_json("lennard.json", "Air", "sigma");
+        double MM2 = ler_json("lennard.json", "Air", "sigma");
 
-    DAB = cal.get_D_total() * 1e-6; // converte-se para m^2/s
-    cout << DAB << endl;
+        calcula cal(p,temp[i]);
+        cal.calculinhos(MM1, MM2, eps1,eps2,sig1,sig2);
 
-    double viscosidade_ar = ar.propriedade(4);
-    double viscosidade_cin_ar = ar.propriedade(5);
-    double ro_b = ar.propriedade(2);
-    double ro_as = 1./agua.propriedade(3);
+        DAB = cal.get_D_total() * 1e-6; // converte-se para m^2/s
 
-    coeficientes_vazao_massica teste1 = coeficientes_vazao_massica(D, L, DAB, taxa_massica1, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
-    double reynolds1 = teste1.calcula_reynolds();
-    double schmidt1 = teste1.calcula_schmidt();
-    double hm1 = teste1.calcula_hm(reynolds1, schmidt1);
-    double pout1 = teste1.calcula_pout(hm1);
-    cout << "A taxa massica de saida eh " << pout1 << "\n";
+        double viscosidade_ar = ar.propriedade(4);
+        double viscosidade_cin_ar = ar.propriedade(5);
+        double ro_b = ar.propriedade(2);
+        double ro_as = 1./agua.propriedade(3);
 
-    coeficientes_vazao_massica teste2 = coeficientes_vazao_massica(D, L, DAB, taxa_massica2, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
-    double reynolds2 = teste2.calcula_reynolds();
-    double schmidt2 = teste2.calcula_schmidt();
-    double hm2 = teste2.calcula_hm(reynolds2, schmidt2);
-    double pout2 = teste2.calcula_pout(hm2);
-    cout << "A taxa massica de saida eh " << pout2 << "\n";
-
-    coeficientes_vazao_massica teste3 = coeficientes_vazao_massica(D, L, DAB, taxa_massica3, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
-    double reynolds3 = teste3.calcula_reynolds();
-    double schmidt3 = teste3.calcula_schmidt();
-    double hm3 = teste3.calcula_hm(reynolds3, schmidt3);
-    double pout3 = teste3.calcula_pout(hm3);
-    cout << "A taxa massica de saida eh " << pout3 << "\n";
-
-    coeficientes_vazao_massica teste4 = coeficientes_vazao_massica(D, L, DAB, taxa_massica4, viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
-    double reynolds4 = teste4.calcula_reynolds();
-    double schmidt4 = teste4.calcula_schmidt();
-    double hm4 = teste4.calcula_hm(reynolds4, schmidt4);
-    double pout4 = teste4.calcula_pout(hm4);
-    cout << "A taxa massica de saida eh " << pout4 << "\n";
+        coeficientes_vazao_massica teste1 = coeficientes_vazao_massica(D, L, DAB, taxa_massica[i], viscosidade_ar, viscosidade_cin_ar, ro_b, ro_as);
+        double reynolds1 = teste1.calcula_reynolds();
+        double schmidt1 = teste1.calcula_schmidt();
+        double hm1 = teste1.calcula_hm(reynolds1, schmidt1);
+        double pout1 = teste1.calcula_pout(hm1);
+        cout << "A taxa massica de saida eh " << pout1 << "\n";
+    }
 
     return 0;
 }
