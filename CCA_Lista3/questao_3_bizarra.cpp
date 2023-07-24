@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <utility>
+#include <matplot/matplot.h>
 #include "nlohmann/json.hpp"
 
 using namespace std;
@@ -190,13 +191,40 @@ double ler_json(const string& nome_json, const string& subst1, const string& pro
     return dado;
 }
 
+void escreve_arquivo(const string& nome_arquivo, const string& resultado, const string& mode) {
+    if (mode == "app") {
+        ofstream arquivo(nome_arquivo, ios::app);
+        if(arquivo.is_open()) {
+            arquivo << resultado << ";";
+            arquivo.close();
+        } else {
+            cerr << "Nao foi possivel abrir o arquivo para escrever a resposta." << endl;
+        }
+    } else if (mode == "out") {
+        ofstream arquivo(nome_arquivo, ios::out);
+        if(arquivo.is_open()) {
+            arquivo << resultado;
+            arquivo.close();
+        } else {
+            cerr << "Nao foi possivel abrir o arquivo para escrever a resposta." << endl;
+        }
+    } else {
+        cout << "Tente chamar essa funcao com o mode app ou out.\n";
+        abort();
+    }
+}
+
 int main(){
     double D = 10e-3, L = 1.3, DAB;
     double p = 1.;
     double t_agua = 298.15;
     vector<double> temp = {273.15, 298.15, 350.15, 373.15};
-    vector<double> taxa_massica = {2.2e-4, 1e-2, 1e-5, 2e-4};
+    vector<double> taxa_massica = {2.2e-4, 1e-4, 1e-5, 2e-4};
+    vector<double> pout;
 
+    // Limpa o arquivo
+    escreve_arquivo("res_q3.txt", "", "out");
+    escreve_arquivo("res_q3.txt", "pout", "app");
     for (int i = 0; i < 4; i++) {
         prop_fisicas ar = prop_fisicas("Ar", temp[i]);
         prop_fisicas agua = prop_fisicas("agua", t_agua);
@@ -223,8 +251,15 @@ int main(){
         double schmidt1 = teste1.calcula_schmidt();
         double hm1 = teste1.calcula_hm(reynolds1, schmidt1);
         double pout1 = teste1.calcula_pout(hm1);
-        cout << "A taxa massica de saida eh " << pout1 << "\n";
+        pout.push_back(pout1);
+        escreve_arquivo("res_q3.txt", to_string(pout1), "app");
     }
+
+    matplot::plot(temp, pout);
+    matplot::title("Pout em funcao da temperatura");
+    matplot::xlabel("Temperatura (K)");
+    matplot::ylabel("Pout");
+    matplot::show();
 
     return 0;
 }
