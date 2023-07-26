@@ -8,3 +8,7 @@ Os arquivos com underline ('_') são rascunhos, os oficiais estão formatados co
 [Guilherme Xavier](https://github.com/Guigo1008)
 
 [Maria Fernanda Olivier](https://github.com/1707oliviernanda)
+
+## Agradecimentos:
+
+Queria agradecer ao meu professor [Luís Fernando](https://github.com/lflrsilva) que nos ensinou e ajudou na melhor medida possível, além de lançar material muito bem explicado no seu próprio GitHub.
